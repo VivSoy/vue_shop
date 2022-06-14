@@ -81,9 +81,9 @@ export default {
         const res = await loginApi(this.form.username, this.form.password)
         console.log(res)
         if (res.status !== 200) return this.$message.error('登录失败')
-        this.$message.success('登陆成功')
         setToken(res.data.data.token)
         this.$router.push('/home')
+        this.$message.success('登陆成功')
       })
     },
     // 将表单重置为初始值

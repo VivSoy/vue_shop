@@ -8,11 +8,7 @@ export const setToken = token => {
 }
 
 // 获取token
-export const getToken = () => {
-  localStorage.getItem(key)
-}
+export const getToken = () => localStorage.getItem(key)
 
 // 移除token
-export const removeToken = () => {
-  localStorage.removeToken(key)
-}
+export const removeToken = () => localStorage.removeItem(key)
