@@ -7,7 +7,12 @@ import '@/assets/css/global.css'
 /* 引入图标 */
 import '@/assets/fonts/iconfont.css'
 
+// 全局树形table插件
+import TableTree from 'vue-table-with-tree-grid'
+
 Vue.config.productionTip = false
+
+Vue.component('tree-table', TableTree)
 
 new Vue({
   router,

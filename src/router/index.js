@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Login from '@/views/Login.vue'
 import Home from '@/views/Home.vue'
 import UserList from '@/views/user/UserList.vue'
+import RightList from '@/views/Rights/RightList.vue'
+import RolesList from '@/views/Rights/RolesList.vue'
+import GoodsCate from '@/views/goods/GoodsCate.vue'
 
 // 获取token
 import { getToken } from '@/utils/token.js'
@@ -27,6 +30,18 @@ const routes = [
       {
         path: '/users',
         component: UserList
+      },
+      {
+        path: '/rights',
+        component: RightList
+      },
+      {
+        path: '/roles',
+        component: RolesList
+      },
+      {
+        path: '/categories',
+        component: GoodsCate
       }
     ]
   }

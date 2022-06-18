@@ -1,54 +1,52 @@
 <template>
-  <div class="layout-container">
-    <el-container>
-      <!-- 头部区域 -->
-      <el-header>
-        <div class="header-log">
-          <img src="../assets/heima.png" alt="" />
-          <span>电商后台管理系统</span>
-        </div>
-        <el-button type="info" @click="logout">退出</el-button>
-      </el-header>
+  <el-container>
+    <!-- 头部区域 -->
+    <el-header>
+      <div class="header-log">
+        <img src="../assets/heima.png" alt="" />
+        <span>电商后台管理系统</span>
+      </div>
+      <el-button type="info" @click="logout">退出</el-button>
+    </el-header>
 
-      <el-container>
-        <!-- 左侧侧边栏区域 -->
-        <el-aside :width="this.isCollapse ? '70px' : '200px'" ref="aside">
-          <!-- 设置折叠菜单按钮 -->
-          <div class="toggle-button" @click="toggleMenu">|||</div>
-          <!-- 侧边栏菜单区域 -->
-          <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b" unique-opened :collapse-transition="false" :collapse="isCollapse" router :default-active="activePath">
-            <!-- 一级菜单 -->
-            <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
-              <!-- 一级菜单的模板区域 -->
+    <el-container>
+      <!-- 左侧侧边栏区域 -->
+      <el-aside :width="this.isCollapse ? '70px' : '200px'" ref="aside">
+        <!-- 设置折叠菜单按钮 -->
+        <div class="toggle-button" @click="toggleMenu">|||</div>
+        <!-- 侧边栏菜单区域 -->
+        <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b" unique-opened :collapse-transition="false" :collapse="isCollapse" router :default-active="activePath">
+          <!-- 一级菜单 -->
+          <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
+            <!-- 一级菜单的模板区域 -->
+            <template slot="title">
+              <!-- 图标 -->
+              <i :class="iconsObj[item.id]"></i>
+              <!-- 文本 -->
+              <span>{{ item.authName }}</span>
+            </template>
+            <!-- 二级菜单 -->
+            <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveActivPath('/' + subItem.path)">
               <template slot="title">
                 <!-- 图标 -->
-                <i :class="iconsObj[item.id]"></i>
+                <i class="el-icon-menu"></i>
                 <!-- 文本 -->
-                <span>{{ item.authName }}</span>
+                <span>{{ subItem.authName }}</span>
               </template>
-              <!-- 二级菜单 -->
-              <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveActivPath('/' + subItem.path)">
-                <template slot="title">
-                  <!-- 图标 -->
-                  <i class="el-icon-menu"></i>
-                  <!-- 文本 -->
-                  <span>{{ subItem.authName }}</span>
-                </template>
-              </el-menu-item>
-            </el-submenu>
-          </el-menu>
-        </el-aside>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
 
-        <el-container>
-          <!-- 右侧主体区域 -->
-          <el-main>
-            <!-- 路由占位符 -->
-            <router-view></router-view>
-          </el-main>
-        </el-container>
+      <el-container>
+        <!-- 右侧主体区域 -->
+        <el-main>
+          <!-- 路由占位符 -->
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script>
@@ -99,9 +97,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.layout-container {
-  height: 100%;
-}
 .el-container {
   height: 100%;
 }

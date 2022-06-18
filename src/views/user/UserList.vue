@@ -44,7 +44,7 @@
               <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser(scope.row.id)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="分配角色" placement="top">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              <el-button type="warning" icon="el-icon-setting" size="mini" @click="setRoles(scope.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -94,12 +94,31 @@
         <el-button type="primary" @click="ModifyUserFn">确 定</el-button>
       </div>
     </el-dialog>
+
+    <!-- 分配角色的对话框 -->
+    <el-dialog title="分配角色" :visible.sync="setRoleDialog" :close-on-press-escape="false" :close-on-click-modal="false" @close="resetSetRoles">
+      <div>
+        <p>当前的用户：{{ this.userInfo.username }}</p>
+        <p>当前的角色：{{ this.userInfo.role_name }}</p>
+      </div>
+      <el-form>
+        <el-form-item label="分配新角色">
+          <el-select v-model="selectedRoleId" placeholder="请选择">
+            <el-option v-for="item in rolesList" :key="item.id" :value="item.id" :label="item.roleName"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="setRoleDialog = false">取 消</el-button>
+        <el-button type="primary" @click="setRolesFn">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 // 导入请求API
-import { getUserList, changeUserState, addUsers, getUserById, editUser, deleteUser } from '@/api/index.js'
+import { getUserList, changeUserState, addUsers, getUserById, editUser, deleteUser, getRolesList, setUserRole } from '@/api/index.js'
 export default {
   name: 'UserList',
   data() {
@@ -118,6 +137,8 @@ export default {
       showAddUser: false,
       // 控制修改用户对话框的显示
       showModifyUser: false,
+      // 控制分配角色弹窗的显示
+      setRoleDialog: false,
       // 新增用户表单数据
       addUser: {
         name: '',
@@ -158,7 +179,13 @@ export default {
             trigger: 'blur'
           }
         ]
-      }
+      },
+      // 角色列表信息
+      rolesList: [],
+      // 当前点击的用户的角色信息
+      userInfo: {},
+      // 分配角色弹窗里下拉菜单选中的角色id值
+      selectedRoleId: ''
     }
   },
   methods: {
@@ -200,6 +227,7 @@ export default {
         console.log(res)
         this.showAddUser = false
         this.$message.success('添加用户成功！')
+        this.getUserList()
       })
     },
     // 新增用户弹窗关闭后重置表单
@@ -230,6 +258,32 @@ export default {
       })
       this.$message.success('删除成功！')
       this.getUserList()
+    },
+    // 分配角色
+    async setRoles(user) {
+      this.userInfo = user
+      // 在展示对话框前获取角色列表
+      const res = await getRolesList()
+      this.rolesList = res.data.data
+      this.setRoleDialog = true
+    },
+    // 发起分配角色的请求
+    async setRolesFn() {
+      if (!this.selectedRoleId) {
+        return this.$message.error('请选择要分配的角色')
+      }
+      await setUserRole({
+        id: this.userInfo.id,
+        rid: this.selectedRoleId
+      })
+      // 重新渲染页面
+      this.getUserList()
+      this.setRoleDialog = false
+    },
+    // 分配角色弹窗关闭后之后重置表单
+    resetSetRoles() {
+      this.selectedRoleId = ''
+      this.userInfo = {}
     }
   },
   async created() {
