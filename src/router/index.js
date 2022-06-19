@@ -6,6 +6,7 @@ import UserList from '@/views/user/UserList.vue'
 import RightList from '@/views/Rights/RightList.vue'
 import RolesList from '@/views/Rights/RolesList.vue'
 import GoodsCate from '@/views/goods/GoodsCate.vue'
+import GoodsParams from '@/views/goods/GoodsParams.vue'
 
 // 获取token
 import { getToken } from '@/utils/token.js'
@@ -42,6 +43,10 @@ const routes = [
       {
         path: '/categories',
         component: GoodsCate
+      },
+      {
+        path: '/params',
+        component: GoodsParams
       }
     ]
   }

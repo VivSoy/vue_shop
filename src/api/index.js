@@ -216,3 +216,48 @@ export const deleteCate = ({ id }) => {
     method: 'DELETE'
   })
 }
+
+// 获取参数列表
+export const getAttributesList = ({ id, sel }) => {
+  return request({
+    url: `categories/${id}/attributes`,
+    method: 'GET',
+    params: {
+      sel
+    }
+  })
+}
+
+// 添加动态参数或者静态属性
+export const addParamsOrAttribute = ({ id, attr_name, attr_sel, attr_vals }) => {
+  return request({
+    url: `categories/${id}/attributes`,
+    method: 'POST',
+    data: {
+      attr_name,
+      attr_sel,
+      attr_vals
+    }
+  })
+}
+
+// 修改参数名称
+export const editParamsOrAttribute = ({ id, attrId, attr_name, attr_sel, attr_vals }) => {
+  return request({
+    url: `categories/${id}/attributes/${attrId}`,
+    method: 'PUT',
+    data: {
+      attr_name,
+      attr_sel,
+      attr_vals
+    }
+  })
+}
+
+// 删除参数
+export const deleteParamsOrAttribute = ({ id, attrid }) => {
+  return request({
+    url: `categories/${id}/attributes/${attrid}`,
+    method: 'DELETE'
+  })
+}
