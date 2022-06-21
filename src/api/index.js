@@ -261,3 +261,34 @@ export const deleteParamsOrAttribute = ({ id, attrid }) => {
     method: 'DELETE'
   })
 }
+
+// 获取商品列表
+export const getGoodsList = ({ query, pagenum, pagesize }) => {
+  return request({
+    url: '/goods',
+    method: 'GET',
+    params: {
+      query,
+      pagenum,
+      pagesize
+    }
+  })
+}
+
+// 添加商品
+export const addGoods = ({ goods_name, goods_cat, goods_price, goods_number, goods_weight, goods_introduce, pics, attrs }) => {
+  return request({
+    url: '/goods',
+    method: 'POST',
+    data: {
+      goods_name,
+      goods_cat,
+      goods_price,
+      goods_number,
+      goods_weight,
+      goods_introduce,
+      pics,
+      attrs
+    }
+  })
+}

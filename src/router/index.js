@@ -7,7 +7,8 @@ import RightList from '@/views/Rights/RightList.vue'
 import RolesList from '@/views/Rights/RolesList.vue'
 import GoodsCate from '@/views/goods/GoodsCate.vue'
 import GoodsParams from '@/views/goods/GoodsParams.vue'
-
+import GoodsList from '@/views/goods/GoodsList.vue'
+import AddGood from '@/views/goods/AddGood.vue'
 // 获取token
 import { getToken } from '@/utils/token.js'
 Vue.use(VueRouter)
@@ -47,6 +48,14 @@ const routes = [
       {
         path: '/params',
         component: GoodsParams
+      },
+      {
+        path: '/goods',
+        component: GoodsList
+      },
+      {
+        path: '/goods/add',
+        component: AddGood
       }
     ]
   }
