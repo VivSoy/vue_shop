@@ -224,7 +224,6 @@ export default {
     },
     // 处理图片预览事件
     handlePreview(file) {
-      console.log(file)
       // 存储预览地址
       this.previewPath = file.response.data.url
       this.previewDialog = true

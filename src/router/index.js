@@ -9,6 +9,8 @@ import GoodsCate from '@/views/goods/GoodsCate.vue'
 import GoodsParams from '@/views/goods/GoodsParams.vue'
 import GoodsList from '@/views/goods/GoodsList.vue'
 import AddGood from '@/views/goods/AddGood.vue'
+import OrderList from '@/views/Order/Order.vue'
+import ReportPanel from '@/views/Repoert/Report.vue'
 // 获取token
 import { getToken } from '@/utils/token.js'
 Vue.use(VueRouter)
@@ -56,6 +58,14 @@ const routes = [
       {
         path: '/goods/add',
         component: AddGood
+      },
+      {
+        path: '/orders',
+        component: OrderList
+      },
+      {
+        path: '/reports',
+        component: ReportPanel
       }
     ]
   }

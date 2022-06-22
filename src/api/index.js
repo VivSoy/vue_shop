@@ -275,6 +275,14 @@ export const getGoodsList = ({ query, pagenum, pagesize }) => {
   })
 }
 
+// 删除商品
+export const deleteGoods = ({ id }) => {
+  return request({
+    url: `goods/${id}`,
+    method: 'DELETE'
+  })
+}
+
 // 添加商品
 export const addGoods = ({ goods_name, goods_cat, goods_price, goods_number, goods_weight, goods_introduce, pics, attrs }) => {
   return request({
@@ -290,5 +298,34 @@ export const addGoods = ({ goods_name, goods_cat, goods_price, goods_number, goo
       pics,
       attrs
     }
+  })
+}
+
+// 获取订单数据列表
+export const getOrderList = ({ query, pagenum, pagesize }) => {
+  return request({
+    url: 'orders',
+    method: 'GET',
+    params: {
+      query,
+      pagenum,
+      pagesize
+    }
+  })
+}
+
+// 获取物流信息
+export const getProgressMsg = () => {
+  return request({
+    url: `/kuaidi/${1106975712663}`,
+    method: 'GET'
+  })
+}
+
+// 基于时间统计的折线图
+export const getReport = () => {
+  return request({
+    url: 'reports/type/1',
+    method: 'GET'
   })
 }

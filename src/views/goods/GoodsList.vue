@@ -29,9 +29,9 @@
         <el-table-column prop="goods_weight" label="商品重量" width="120"> </el-table-column>
         <el-table-column prop="add_time" label="创建时间" width="180"> </el-table-column>
         <el-table-column label="操作" width="160">
-          <template>
+          <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteGood(scope.row.goods_id)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { getGoodsList } from '@/api/index.js'
+import { getGoodsList, deleteGoods } from '@/api/index.js'
 // 时间处理模块
 import { formatTime } from '@/utils/dayFormat.js'
 export default {
@@ -87,6 +87,11 @@ export default {
     // serach goods by keywords
     searchGood() {
       this.goodListInfo.query = this.goodSearch
+      this.getList()
+    },
+    // 删除商品
+    async deleteGood(goods_id) {
+      await deleteGoods({ id: goods_id })
       this.getList()
     }
   },
